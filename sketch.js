@@ -76,7 +76,9 @@ function generateField(){
 function drawField(){
 	//if(field[i].type != "PACMAN"){
         for(var i = 0; i < field.length; i++){
-            field[i].draw();
+            if(field[i].intact){
+                field[i].draw();
+            }
         }
     //}
     noStroke();

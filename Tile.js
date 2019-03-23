@@ -20,6 +20,8 @@ function Tile(x, y, type){
     this.destination = (-1, -1);
     this.moving = false;
     this.speed = 0.2;
+
+    this.intact = true;
 }
 
 Tile.prototype.draw = function(){
@@ -97,6 +99,10 @@ Tile.prototype.move = function(x, y, relative){
 
 
 Tile.prototype.update = function(){
+    if(!this.intact){
+	    return;
+    }
+
     if(this.moving){
         this.x = lerp(this.x, this.destination.x, this.speed);
         this.y = lerp(this.y, this.destination.y, this.speed);
@@ -114,6 +120,20 @@ Tile.prototype.update = function(){
 
     if(this.moving){
         return;
+    }
+
+    if(this.type == "PACMAN"){
+        var destinationTile = getTile(Math.floor(this.x), Math.floor(this.y));
+        if(destinationTile.intact){
+            switch(destinationTile.type){
+                case "BISCUIT":
+                    destinationTile.intact = false;
+                    break;
+                case "CHERRY":
+                    destinationTile.intact = false;
+                    break;
+            }
+        }
     }
 
 }
