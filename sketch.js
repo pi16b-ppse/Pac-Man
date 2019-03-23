@@ -23,9 +23,10 @@ const FIELD = [
 
 var field = [];
 var pacman;
+var score = 0;
 
 function setup(){
-    createCanvas(500, 500);
+    createCanvas(500, 535);
     field = generateField();
 
 }
@@ -78,6 +79,10 @@ function drawField(){
             field[i].draw();
         }
     //}
+    noStroke();
+    textSize(30);
+    textAlign(LEFT);
+    text(score, 5, height - 5);
 }
 
 function handleInput(){
