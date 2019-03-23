@@ -44,6 +44,7 @@ function generateField(){
 
             switch(type){
                 case "PACKMAN":
+                    //f.push(tile);
                     break;
                 case "BARRIER":
                     f.push(tile);
@@ -55,6 +56,7 @@ function generateField(){
                     f.push(tile);
                     break;
                 case "GHOST":
+                    f.push(tile);
                     break;
             }
         } 

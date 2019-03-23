@@ -23,6 +23,11 @@ function Tile(x, y, type){
 Tile.prototype.draw = function(){
     switch(this.type){
         case "PACKMAN":
+            ellipseMode(CORNER);
+            stroke("#FFFF00");
+            strokeWeight(5);
+            fill("#FFFF33");
+            ellipse(this.x * SIZE + QUARTER_SIZE, this.y * SIZE + QUARTER_SIZE, HALF_SIZE);
             break;
         case "BARRIER":
             strokeWeight(5);
@@ -44,6 +49,10 @@ Tile.prototype.draw = function(){
             ellipse(this.x * SIZE + QUARTER_SIZE, this.y * SIZE + QUARTER_SIZE, HALF_SIZE);
             break;
         case "GHOST":
+            stroke(0);
+            strokeWeight(0);
+            fill("#FF00EE");
+            triangle(this.x * SIZE + HALF_SIZE, this.y * SIZE + QUARTER_SIZE, this.x * SIZE + QUARTER_SIZE, this.y * SIZE + (QUARTER_SIZE * 3), this.x * SIZE + (QUARTER_SIZE * 3), this.y * SIZE + (QUARTER_SIZE * 3));
             break;
     }
 }
