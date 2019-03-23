@@ -66,27 +66,27 @@ function getTile(x, y) {
 }
 
 Tile.prototype.move = function(x, y, relative){
-	var destinationX;
-	var destinationY;
+    var destinationX;
+    var destinationY;
 
-	if(relative){
-		destinationX = this.x + x;
-		destinationY = this.y + y;
-	}
-	else{
-		destinationX = x;
-		destinationY = y;
-	}
+    if(relative){
+        destinationX = this.x + x;
+        destinationY = this.y + y;
+    }
+    else{
+        destinationX = x;
+        destinationY = y;
+    }
 
     if(this.moving){
-    	return;
+        return;
     }
 
     var destinationTile = getTile(destinationX, destinationY);
     var type = destinationTile.type;
 
     if(type == "BARRIER" && this.type != "BARRIER"){
-    	return false;
+        return false;
     }   
 
     this.moving = true;
@@ -113,7 +113,7 @@ Tile.prototype.update = function(){
     }  
 
     if(this.moving){
-    	return;
-    } 
+        return;
+    }
 
 }
