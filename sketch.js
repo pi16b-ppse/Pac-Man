@@ -22,11 +22,12 @@ const FIELD = [
 ];
 
 var field = [];
-var packman;
+var pacman;
 
 function setup(){
     createCanvas(500, 500);
     field = generateField();
+
 }
 
 function draw(){
@@ -35,6 +36,8 @@ function draw(){
 
     pacman.update();
     pacman.draw();
+
+    handleInput();
 }
 
 function generateField(){
@@ -47,9 +50,9 @@ function generateField(){
             var tile = new Tile(j, i, type);
 
             switch(type){
-                case "PACKMAN":
-                    packman = tile;
-                    f.push(new Tile(j, i, "PACKMAN"));
+                case "PACMAN":
+                    pacman = tile;
+                    f.push(new Tile(j, i, "PACMAN"));
                     break;
                 case "BARRIER":
                     f.push(tile);
@@ -70,28 +73,28 @@ function generateField(){
 }
 
 function drawField(){
-	if(field[i].type != "PACMAN"){
+	//if(field[i].type != "PACMAN"){
         for(var i = 0; i < field.length; i++){
             field[i].draw();
         }
-    }
+    //}
 }
 
 function handleInput(){
     if(keyIsDown(UP_ARROW)){
-
+        pacman.move(0, -1, true);
     }
     else{
     	if(keyIsDown(DOWN_ARROW)){
-
+            pacman.move(0, 1, true);
     	}
     	else{
     		if(keyIsDown(LEFT_ARROW)){
-
+                pacman.move(-1, 0, true);
     		}
     		else{
     			if(keyIsDown(RIGHT_ARROW)){
-
+                    pacman.move(1, 0, true);
     			}
     		}
     	}

@@ -24,7 +24,7 @@ function Tile(x, y, type){
 
 Tile.prototype.draw = function(){
     switch(this.type){
-        case "PACKMAN":
+        case "PACMAN":
             ellipseMode(CORNER);
             stroke("#FFFF00");
             strokeWeight(5);
@@ -63,13 +63,13 @@ function getTile(x, y) {
     return field[y * DIMENSIONS + x];
 }
 
-Tile.prototype.move = function(){
+Tile.prototype.move = function(x, y, relative){
 	var destinationX;
 	var destinationY;
 
 	if(relative){
 		destinationX = this.x + x;
-		destinationX = this.y + y;
+		destinationY = this.y + y;
 	}
 	else{
 		destinationX = x;
@@ -91,4 +91,27 @@ Tile.prototype.move = function(){
     this.destination = createVector(destinationX, destinationY);
 
     return true;
+}
+
+
+Tile.prototype.update = function(){
+    if(this.moving){
+        this.x = lerp(this.x, this.destination.x, this.speed);
+        this.y = lerp(this.y, this.destination.y, this.speed);
+
+        var distanceX = Math.abs(this.x - this.destination.x);
+        var distanceY = Math.abs(this.y - this.destination.y);
+
+        if(distanceX < 0.1 && distanceY < 0.1){
+            this.x = this.destination.x;
+            this.y = this.destination.y;
+
+            this.moving = false;
+        }
+    }  
+
+    if(this.moving){
+    	return;
+    } 
+
 }
