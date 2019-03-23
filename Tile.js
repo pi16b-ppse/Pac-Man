@@ -56,6 +56,8 @@ Tile.prototype.draw = function(){
             fill("#FF00EE");
             triangle(this.x * SIZE + HALF_SIZE, this.y * SIZE + QUARTER_SIZE, this.x * SIZE + QUARTER_SIZE, this.y * SIZE + (QUARTER_SIZE * 3), this.x * SIZE + (QUARTER_SIZE * 3), this.y * SIZE + (QUARTER_SIZE * 3));
             break;
+        case "OPEN":
+            break;
     }
 };
 

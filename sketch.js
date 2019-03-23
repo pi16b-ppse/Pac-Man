@@ -52,7 +52,7 @@ function generateField(){
             switch(type){
                 case "PACMAN":
                     pacman = tile;
-                    f.push(new Tile(j, i, "PACMAN"));
+                    f.push(new Tile(j, i, "OPEN"));
                     break;
                 case "BARRIER":
                     f.push(tile);
