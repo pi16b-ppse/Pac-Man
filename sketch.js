@@ -22,7 +22,8 @@ const FIELD = [
 ];
 
 var field = [];
-	
+var packman;
+
 function setup(){
     createCanvas(500, 500);
     field = generateField();
@@ -31,6 +32,9 @@ function setup(){
 function draw(){
     background(51);
     drawField();
+
+    pacman.update();
+    pacman.draw();
 }
 
 function generateField(){
@@ -44,7 +48,8 @@ function generateField(){
 
             switch(type){
                 case "PACKMAN":
-                    //f.push(tile);
+                    packman = tile;
+                    f.push(new Tile(j, i, "PACKMAN"));
                     break;
                 case "BARRIER":
                     f.push(tile);
@@ -65,7 +70,30 @@ function generateField(){
 }
 
 function drawField(){
-    for(var i = 0; i < field.length; i++){
-        field[i].draw();
+	if(field[i].type != "PACMAN"){
+        for(var i = 0; i < field.length; i++){
+            field[i].draw();
+        }
+    }
+}
+
+function handleInput(){
+    if(keyIsDown(UP_ARROW)){
+
+    }
+    else{
+    	if(keyIsDown(DOWN_ARROW)){
+
+    	}
+    	else{
+    		if(keyIsDown(LEFT_ARROW)){
+
+    		}
+    		else{
+    			if(keyIsDown(RIGHT_ARROW)){
+
+    			}
+    		}
+    	}
     }
 }
