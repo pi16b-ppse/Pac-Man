@@ -23,6 +23,7 @@ const FIELD = [
 
 var field = [];
 var pacman;
+var ghosts = [];
 var score = 0;
 
 function setup(){
@@ -34,6 +35,10 @@ function setup(){
 function draw(){
     background(51);
     drawField();
+    for(var j = 0; j < ghosts.length; j++){
+        ghosts[j].update();
+        ghosts[j].draw();
+    }
 
     pacman.update();
     pacman.draw();
@@ -43,7 +48,7 @@ function draw(){
 
 function generateField(){
     var f = [];
-
+    var ghostId = 0;
     for(var i = 0; i < FIELD.length; i++){
         var row = FIELD[i].split(",");
         for(var	j = 0; j < row.length; j++){
@@ -65,7 +70,10 @@ function generateField(){
                     f.push(tile);
                     break;
                 case "GHOST":
-                    f.push(tile);
+                    var beh = (ghostId % 2);
+                    ghosts.push(new Tile(j, i, type, beh));
+                    f.push(new Tile(j, i, "OPEN"));
+                    ghostId++;
                     break;
                 case "POISON":
                     f.push(tile);
