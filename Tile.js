@@ -134,12 +134,15 @@ Tile.prototype.update = function(){
                     destinationTile.intact = false;
                     score+=10;
                     break;
+                case "GHOST":
+                    endGame(false);
+                    break;
             }
         }
     }
 
-    if(score == 241){
-    	refresh();
+    if(score >= 241){
+    	endGame(true);
     }
 
 }

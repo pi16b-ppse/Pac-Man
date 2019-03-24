@@ -107,3 +107,20 @@ function handleInput(){
         }
     }
 }
+
+function endGame(won){
+    textSize(60);
+    textAlign(CENTER);
+    fill(255);
+    stroke(0);
+    strokeWeight(5);
+    if(won){
+        text("You win!", width / 2, height / 2);
+    }
+    else{
+        text("You lose!", width / 2, height / 2);
+    }
+    textSize(50);
+    text("Press F5 to restart", width / 2, height / 2 + 50);
+    noLoop();   
+}
