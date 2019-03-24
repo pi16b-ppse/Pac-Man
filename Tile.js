@@ -4,7 +4,8 @@ const TYPES = [
     "OPEN",
     "CHERRY",
     "GHOST",
-    "PACMAN"
+    "PACMAN",
+    "POISON"
 ];
 
 const DIMENSIONS = 20;
@@ -59,6 +60,12 @@ Tile.prototype.draw = function(){
             triangle(this.x * SIZE + HALF_SIZE, this.y * SIZE + QUARTER_SIZE, this.x * SIZE + QUARTER_SIZE, this.y * SIZE + (QUARTER_SIZE * 3), this.x * SIZE + (QUARTER_SIZE * 3), this.y * SIZE + (QUARTER_SIZE * 3));
             break;
         case "OPEN":
+            break;
+        case "POISON":
+        	ellipseMode(CORNER);
+            noStroke();
+            fill(0);
+            ellipse(this.x * SIZE + THIRD_SIZE, this.y * SIZE + THIRD_SIZE, THIRD_SIZE);
             break;
     }
 };
@@ -128,12 +135,25 @@ Tile.prototype.update = function(){
             switch(destinationTile.type){
                 case "BISCUIT":
                     destinationTile.intact = false;
+                    score++;
                     break;
                 case "CHERRY":
                     destinationTile.intact = false;
+                    score+=10;
+                    break;
+                case "GHOST":
+                    endGame(false);
+                    break;
+                case "POISON":
+                    destinationTile.intact = false;
+                    score-=10;
                     break;
             }
         }
+    }
+
+    if(score >= 241){
+    	endGame(true);
     }
 
 }
