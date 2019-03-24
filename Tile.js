@@ -13,7 +13,7 @@ const HALF_SIZE = SIZE / 2;
 const THIRD_SIZE = SIZE / 3;
 const QUARTER_SIZE = SIZE / 4;
 
-function Tile(x, y, type){
+function Tile(x, y, type, behavior){
     this.x = x;
     this.y = y;
     this.type = type;
@@ -22,7 +22,7 @@ function Tile(x, y, type){
     this.speed = 0.2;
 
     this.intact = true;
-    //this.behavior = behavior; //ghosts only
+    this.behavior = behavior; //ghosts only
 }
 
 Tile.prototype.draw = function(){
@@ -150,13 +150,17 @@ Tile.prototype.update = function(){
                 getTile(this.x, this.y - 1), //top
                 getTile(this.x, this.y + 1) // bottom
             ];
-
-            for(var i = 0; i < possibleMoves.length; i++){
-            	/*if(this.move(possibleMoves[i].x, possibleMoves[i].y, false)){
-            		break;
-            	}*/
+            
+            if(this.behavior === 0){
+                for(var i = 0; i < possibleMoves.length; i++){
+            	    if(this.move(possibleMoves[i].x, possibleMoves[i].y, false)){
+            		    break;
+            		}
+            	}
+            }
+            else{
             	var ind = Math.floor(random(4));
-            	this.move(possibleMoves[ind].x, possibleMoves[i].y, false);
+            	this.move(possibleMoves[ind].x, possibleMoves[ind].y, false);
             }
         }
     }

@@ -48,7 +48,7 @@ function draw(){
 
 function generateField(){
     var f = [];
-
+    var ghostId = 0;
     for(var i = 0; i < FIELD.length; i++){
         var row = FIELD[i].split(",");
         for(var	j = 0; j < row.length; j++){
@@ -70,8 +70,10 @@ function generateField(){
                     f.push(tile);
                     break;
                 case "GHOST":
-                    ghosts.push(new Tile(j, i, type));
+                    var beh = (ghostId % 2);
+                    ghosts.push(new Tile(j, i, type, beh));
                     f.push(new Tile(j, i, "OPEN"));
+                    ghostId++;
                     break;
             }
         } 
