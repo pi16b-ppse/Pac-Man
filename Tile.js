@@ -22,6 +22,7 @@ function Tile(x, y, type){
     this.speed = 0.2;
 
     this.intact = true;
+    //this.behavior = behavior; //ghosts only
 }
 
 Tile.prototype.draw = function(){
@@ -87,7 +88,7 @@ Tile.prototype.move = function(x, y, relative){
     var destinationTile = getTile(destinationX, destinationY);
     var type = destinationTile.type;
 
-    if(type == "BARRIER" && this.type != "BARRIER"){
+    if((type == "BARRIER" && this.type != "BARRIER") || (type == "GHOST" && this.type != "GHOST")){
         return false;
     }   
 
@@ -132,6 +133,30 @@ Tile.prototype.update = function(){
                 case "CHERRY":
                     destinationTile.intact = false;
                     break;
+            }
+        }
+    }
+    else{
+    	if(this.type == "GHOST"){
+            var distance = dist(pacman.x, pacman.y, this.x, this.y);
+            
+            if(this.moving){
+                return;
+            }
+
+            var possibleMoves = [
+                getTile(this.x - 1, this.y), //left
+                getTile(this.x + 1, this.y), //right
+                getTile(this.x, this.y - 1), //top
+                getTile(this.x, this.y + 1) // bottom
+            ];
+
+            for(var i = 0; i < possibleMoves.length; i++){
+            	/*if(this.move(possibleMoves[i].x, possibleMoves[i].y, false)){
+            		break;
+            	}*/
+            	var ind = Math.floor(random(4));
+            	this.move(possibleMoves[ind].x, possibleMoves[i].y, false);
             }
         }
     }
