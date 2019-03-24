@@ -128,12 +128,18 @@ Tile.prototype.update = function(){
             switch(destinationTile.type){
                 case "BISCUIT":
                     destinationTile.intact = false;
+                    score++;
                     break;
                 case "CHERRY":
                     destinationTile.intact = false;
+                    score+=10;
                     break;
             }
         }
+    }
+
+    if(score == 241){
+    	refresh();
     }
 
 }
