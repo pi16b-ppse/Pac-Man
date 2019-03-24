@@ -19,7 +19,7 @@ function Tile(x, y, type, behavior){
     this.type = type;
     this.destination = (-1, -1);
     this.moving = false;
-    this.speed = 0.2;
+    this.speed = 0.3;
 
     this.intact = true;
     this.behavior = behavior; //ghosts only
@@ -105,8 +105,16 @@ Tile.prototype.update = function(){
     }
 
     if(this.moving){
-        this.x = lerp(this.x, this.destination.x, this.speed);
-        this.y = lerp(this.y, this.destination.y, this.speed);
+    	if(this.type == "PACMAN"){
+            this.x = lerp(this.x, this.destination.x, this.speed);
+            this.y = lerp(this.y, this.destination.y, this.speed);
+        }
+        else{
+        	if(this.type == "GHOST"){
+            this.x = lerp(this.x, this.destination.x, this.speed-0.15);
+            this.y = lerp(this.y, this.destination.y, this.speed-0.15);
+        }
+        }
 
         var distanceX = Math.abs(this.x - this.destination.x);
         var distanceY = Math.abs(this.y - this.destination.y);
@@ -139,7 +147,10 @@ Tile.prototype.update = function(){
     else{
     	if(this.type == "GHOST"){
             var distance = dist(pacman.x, pacman.y, this.x, this.y);
-            
+            if (distance < 0.5){// if Pac-man has touched a GHOST
+                endGame(false);
+            }
+
             if(this.moving){
                 return;
             }
@@ -150,6 +161,14 @@ Tile.prototype.update = function(){
                 getTile(this.x, this.y - 1), //top
                 getTile(this.x, this.y + 1) // bottom
             ];
+
+            possibleMoves.sort(function (a, b) {
+
+            var aD = dist(a.x, a.y, pacman.x, pacman.y);
+            var bD = dist(b.x, b.y, pacman.x, pacman.y);
+
+            return aD - bD;
+            });
             
             if(this.behavior === 0){
                 for(var i = 0; i < possibleMoves.length; i++){
