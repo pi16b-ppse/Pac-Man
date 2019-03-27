@@ -179,11 +179,9 @@ Tile.prototype.update = function(){
             ];
 
             possibleMoves.sort(function (a, b) {
-
-            var aD = dist(a.x, a.y, pacman.x, pacman.y);
-            var bD = dist(b.x, b.y, pacman.x, pacman.y);
-
-            return aD - bD;
+                var aD = dist(a.x, a.y, pacman.x, pacman.y);
+                var bD = dist(b.x, b.y, pacman.x, pacman.y);
+                return aD - bD;
             });
             
             if(this.behavior === 0){

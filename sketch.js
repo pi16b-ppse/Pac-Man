@@ -84,7 +84,7 @@ function generateField(){
 }
 
 function drawField(){
-	//if(field[i].type != "PACMAN"){
+    //if(field[i].type != "PACMAN"){
         for(var i = 0; i < field.length; i++){
             if(field[i].intact){
                 field[i].draw();
