@@ -29,7 +29,6 @@ var score = 0;
 function setup(){
     createCanvas(500, 535);
     field = generateField();
-
 }
 
 function draw(){

@@ -63,7 +63,7 @@ Tile.prototype.draw = function(){
         case "OPEN":
             break;
         case "POISON":
-        	ellipseMode(CORNER);
+            ellipseMode(CORNER);
             noStroke();
             fill(0);
             ellipse(this.x * SIZE + THIRD_SIZE, this.y * SIZE + THIRD_SIZE, THIRD_SIZE);
@@ -108,19 +108,19 @@ Tile.prototype.move = function(x, y, relative){
 
 Tile.prototype.update = function(){
     if(!this.intact){
-	    return;
+        return;
     }
 
     if(this.moving){
-    	if(this.type == "PACMAN"){
+        if(this.type == "PACMAN"){
             this.x = lerp(this.x, this.destination.x, this.speed);
             this.y = lerp(this.y, this.destination.y, this.speed);
         }
         else{
-        	if(this.type == "GHOST"){
-            this.x = lerp(this.x, this.destination.x, this.speed-0.15);
-            this.y = lerp(this.y, this.destination.y, this.speed-0.15);
-        }
+            if(this.type == "GHOST"){
+                this.x = lerp(this.x, this.destination.x, this.speed-0.15);
+                this.y = lerp(this.y, this.destination.y, this.speed-0.15);
+            }
         }
 
         var distanceX = Math.abs(this.x - this.destination.x);
@@ -161,7 +161,7 @@ Tile.prototype.update = function(){
         }
     }
     else{
-    	if(this.type == "GHOST"){
+        if(this.type == "GHOST"){
             var distance = dist(pacman.x, pacman.y, this.x, this.y);
             if (distance < 0.5){// if Pac-man has touched a GHOST
                 endGame(false);
@@ -188,20 +188,20 @@ Tile.prototype.update = function(){
             
             if(this.behavior === 0){
                 for(var i = 0; i < possibleMoves.length; i++){
-            	    if(this.move(possibleMoves[i].x, possibleMoves[i].y, false)){
-            		    break;
-            		}
-            	}
+                    if(this.move(possibleMoves[i].x, possibleMoves[i].y, false)){
+                        break;
+                    }
+                }
             }
             else{
-            	var ind = Math.floor(random(4));
-            	this.move(possibleMoves[ind].x, possibleMoves[ind].y, false);
+                var ind = Math.floor(random(4));
+                this.move(possibleMoves[ind].x, possibleMoves[ind].y, false);
             }
         }
     }
 
     if(score >= 241){
-    	endGame(true);
+        endGame(true);
     }
 
 }
