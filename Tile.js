@@ -5,7 +5,8 @@ const TYPES = [
     "CHERRY",
     "GHOST",
     "PACMAN",
-    "POISON"
+    "POISON",
+    "APPLE"
 ];
 
 const DIMENSIONS = 20;
@@ -67,6 +68,13 @@ Tile.prototype.draw = function(){
             noStroke();
             fill(0);
             ellipse(this.x * SIZE + THIRD_SIZE, this.y * SIZE + THIRD_SIZE, THIRD_SIZE);
+            break;
+        case "APPLE":
+            ellipseMode(CORNER);
+            stroke(255);
+            strokeWeight(2);
+            fill("#00FF00");
+            ellipse(this.x * SIZE + QUARTER_SIZE, this.y * SIZE + QUARTER_SIZE, HALF_SIZE);
             break;
     }
 };
