@@ -165,6 +165,10 @@ Tile.prototype.update = function(){
                     destinationTile.intact = false;
                     score-=10;
                     break;
+                case "APPLE":
+                    destinationTile.intact = false;
+                    score+=3;
+                    break;
             }
         }
     }
