@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://docbook.org/xml/5.1/rng/docbook.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.1">
+    <info>
+        <title>Документация к игре Pac-Man</title>
+        <author>
+            <personname>Разработал документацию к игре "Pac-Man" Коврик Кирилл</personname>
+            <email>kirill_kovrik@mail.ru</email>
+        </author>
+    </info>
+   
+    <chapter>
+        <title>Принцип игры "Pac-Man"</title>
+        <para>
+            Pac-Man — аркадная игра, разработанная японской компанией Namco 
+            и вышедшая в 1980 году. Задача игрока — управляя Пакманом, съесть все 
+            точки в лабиринте, избегая встречи с привидениями, которые гоняются за 
+            героем. Игра заканчивается в случае, если вы съели все точки (белые, красные, заленые)
+            или Вас догнали приведения (тогда игра начнется заново).
+        </para>
+    </chapter>
+    <chapter>
+        <title>Иллюстрации</title>
+        <orderedlist>
+            <listitem>
+                <para>
+                    <emphasis>Игровой процесс</emphasis>
+                </para>
+                <para>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata align="center" scale="120" fileref="images/game.jpg"/>
+                        </imageobject>
+                    </mediaobject>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis>Поражение</emphasis>
+                </para>
+                <para>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata align="center" scale="120" fileref="images/end.jpg"/>
+                        </imageobject>
+                    </mediaobject>
+                </para>
+            </listitem>
+        </orderedlist>
+    </chapter>
+    <chapter>
+        <title>Детали реализации</title>
+        <para>Особенности реализации отдельного функционала представлены ниже:</para>
+        <section>
+            <title>Проверка условия окончания игры</title>
+            <programlisting>
+                <![CDATA[
+    function endGame(won){
+        textSize(60);
+        textAlign(CENTER);
+        fill(255);
+        stroke(0);
+        strokeWeight(5);
+        if(won){
+            text("You win!", width / 2, height / 2);
+        }
+        else{
+            text("You lose!", width / 2, height / 2);
+        }
+        textSize(50);
+        text("Press F5 to restart", width / 2, height / 2 + 50);
+        noLoop();   
+    }
+                ]]>
+            </programlisting>
+        </section>
+        <section>
+            <title>Отслеживание нажатия клавиш-стрелок игроком</title>
+            <programlisting>
+                <![CDATA[
+    function handleInput(){
+    if(keyIsDown(UP_ARROW)){
+        pacman.move(0, -1, true);
+    }
+    else{
+        if(keyIsDown(DOWN_ARROW)){
+            pacman.move(0, 1, true);
+        }
+        else{
+            if(keyIsDown(LEFT_ARROW)){
+                pacman.move(-1, 0, true);
+            }
+            else{
+                if(keyIsDown(RIGHT_ARROW)){
+                    pacman.move(1, 0, true);
+                }
+            }
+        }
+    }
+}
+                ]]>
+            </programlisting>
+        </section>
+        <section>
+            <title>Генерация игрового поля</title>
+            <programlisting>
+                <![CDATA[
+    function generateField(){
+    var f = [];
+    var ghostId = 0;
+    for(var i = 0; i < FIELD.length; i++){
+        var row = FIELD[i].split(",");
+        for(var	j = 0; j < row.length; j++){
+            var type = TYPES[row[j]];
+            var tile = new Tile(j, i, type);
+
+            switch(type){
+                case "PACMAN":
+                    pacman = tile;
+                    f.push(new Tile(j, i, "OPEN"));
+                    break;
+                case "BARRIER":
+                    f.push(tile);
+                    break;
+                case "BISCUIT":
+                    f.push(tile);
+                    break;
+                case "CHERRY":
+                    f.push(tile);
+                    break;
+                case "GHOST":
+                    var beh = (ghostId % 2);
+                    ghosts.push(new Tile(j, i, type, beh));
+                    f.push(new Tile(j, i, "OPEN"));
+                    ghostId++;
+                    break;
+                case "POISON":
+                    f.push(tile);
+                    break;
+                case "APPLE":
+                    f.push(tile);
+                    break;
+            }
+        } 
+    }
+    return f;
+}
+                ]]>
+            </programlisting>
+        </section>
+    </chapter>
+</book>
